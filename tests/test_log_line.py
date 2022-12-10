@@ -40,7 +40,6 @@ class TestLogLine(unittest.TestCase):
         :param mock_my_class:
         :return:
         """
-        # TODO: fix this test so that we can get the rows written and verify them.
         cvs_file = TextIO()
         csv_writer_mock = csv.writer(cvs_file, quoting=csv.QUOTE_NONNUMERIC)
         self.line.write_csv_row(csv_writer_mock)

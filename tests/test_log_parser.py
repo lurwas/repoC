@@ -31,31 +31,41 @@ class TestLogParser(unittest.TestCase):
         test_parser.parse_parameters(args)
         self.assertEqual(test_parser.filename, test_parser.default_file_name)
 
-    def test_open_file(self):
+    @patch('builtins.open')
+    def test_open_file(self, mock_file_open):
         """
         Test open file
         :return:
         """
+        file_data = ['/a/file.cc:42: Warning: "mice"\n',
+                     '/b/file.h:24: Warning: "dolphins"\n']
+        mock_file_open.return_value.__enter__.return_value = file_data
         test_parser = log_parser.LogParser()
         test_parser.filename = 'agent42.txt'
-        with patch('builtins.open', unittest.mock.mock_open()) as mock_open:
-            test_parser.read_lines_from_file()
-            mock_open.assert_called_once_with(test_parser.filename)
+        lines = test_parser.read_lines_from_file()
+        self.assertEqual(file_data, lines)
+        mock_file_open.assert_called_once_with(test_parser.filename, encoding='UTF8')
 
+    @patch('builtins.open')
     @patch('os.path.isfile')
-    def test_run(self, mock_isfile):
+    def test_run(self, mock_isfile, mock_file_open):
         """
         Test run
-        :param mock_isfile: Mock for the os isfile call
+        :param mock_isfile: Mock for the isfile call
+        :param mock_file_open: Mock for the open call
         :return:
         """
+        # with patch('builtins.open', unittest.mock.mock_open()):
+        mock_isfile.return_value = True
+        file_data = ['/a/file.cc:42: Warning: "mice"\n',
+                     '/b/file.h:24: Warning: "dolphins"\n']
+        mock_file_open.return_value.__iter__.return_value = file_data
         args = []
         test_parser = log_parser.LogParser()
         test_parser.parse_parameters(args)
-        with patch('builtins.open', unittest.mock.mock_open()):
-            mock_isfile.return_value = True
-            test_parser.read_lines_from_file()
-            self.assertTrue(test_parser.run(args))
+        self.assertTrue(test_parser.run(args))
+        self.assertTrue(mock_file_open.called)
+        self.assertEqual((test_parser.csv_file.filename, 'w'), mock_file_open.call_args[0])
 
     @patch('os.path.isfile')
     def test_run_no_file(self, mock_isfile):
