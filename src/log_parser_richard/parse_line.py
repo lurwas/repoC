@@ -37,8 +37,11 @@ class ParseLine:
             message = match.group(self.message_group)
         except IndexError as index_error:
             print(f'Index error: {index_error}')
-            # Returning None here since the IndexError shouldn't stop from parsing the next line
+            # Returning None here since the IndexError shouldn't
+            # stop from parsing the next line
             return None
 
-        my_log_line = LogLine(file=file_name, line_number=line_number, message=message)
+        my_log_line = LogLine(file=file_name,
+                              line_number=line_number,
+                              message=message)
         return my_log_line

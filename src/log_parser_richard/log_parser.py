@@ -24,8 +24,9 @@ class LogParser:
         Parse the needed parameters
         :return:
         """
+        application_description = 'Simple doxygen warning log parser'
         parser = argparse.ArgumentParser(prog='log_parser',
-                                         description='simple log parser for doxygen warnings',
+                                         description=application_description,
                                          epilog='have a nice day')
         parser.add_argument('-f', '--filename', default=self.default_file_name)
         args = parser.parse_args(args)
