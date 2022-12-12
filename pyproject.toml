@@ -8,14 +8,14 @@ version = "0.0.1"
 authors = [
     { name="Richard Lowbrink", email="richard.lowbrink@sylog.se" },
 ]
-requires="csv_writer"
-
 description = "A log parser for doxygen warning logs"
 readme = "README.md"
 requires-python = ">=3.10.6"
-
-[tool.pytest.ini_options]
-addopts = [
-    "--import-mode=importlib",
-]
 pythonpath = "src/log_parser_richard"
+
+[project.optional-dependencies]
+test = [
+    "mock~=4.0.3",
+    "flake8~=3.8.4",
+    "pylint~=2.6.0"
+]
