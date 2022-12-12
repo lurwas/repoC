@@ -64,9 +64,9 @@ class TestParseLine(unittest.TestCase):
         Test parse lines with no line numbers group
         :return:
         """
-        example_line_without_line_number = '/no/file/just/directory/fileButNoLine.cc'
+        line_no_number = '/no/file/just/directory/fileButNoLine.cc'
         self.line_parser.pattern = r".+\w+"
-        logged_line = self.line_parser.parse_line(example_line_without_line_number)
+        logged_line = self.line_parser.parse_line(line_no_number)
         self.assertIsNone(logged_line)
 
     def test_parse_lines_no_message(self):
@@ -74,7 +74,7 @@ class TestParseLine(unittest.TestCase):
         Test parse lines with no message group
         :return:
         """
-        example_line_without_message = '/no/file/just/directory/fileAndLineNumberButNoMessage.cc:42'
+        example_line_without_message = '/a/dir/any.cc:42'
         self.line_parser.pattern = r".+\w+"
         logged_line = self.line_parser.parse_line(example_line_without_message)
         self.assertIsNone(logged_line)

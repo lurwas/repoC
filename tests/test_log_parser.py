@@ -44,7 +44,9 @@ class TestLogParser(unittest.TestCase):
         test_parser.filename = 'agent42.txt'
         lines = test_parser.read_lines_from_file()
         self.assertEqual(file_data, lines)
-        mock_file_open.assert_called_once_with(test_parser.filename, encoding='UTF8')
+        mock_file_open.assert_called_once_with(
+            test_parser.filename,
+            encoding='UTF8')
 
     @patch('builtins.open')
     @patch('os.path.isfile')
@@ -65,7 +67,8 @@ class TestLogParser(unittest.TestCase):
         test_parser.parse_parameters(args)
         self.assertTrue(test_parser.run(args))
         self.assertTrue(mock_file_open.called)
-        self.assertEqual((test_parser.csv_file.filename, 'w'), mock_file_open.call_args[0])
+        self.assertEqual((test_parser.csv_file.filename, 'w'),
+                         mock_file_open.call_args[0])
 
     @patch('os.path.isfile')
     def test_run_no_file(self, mock_isfile):
@@ -88,7 +91,8 @@ class TestLogParser(unittest.TestCase):
         :return:
         """
         test_parser = log_parser.LogParser()
-        example_line_cc: str = "/accepts/lines/like/this/any_file.cc:42: warning: A meaning of life"
+        example_line_cc: str = \
+            "/a/dir/any_file.cc:42: warning: A meaning of life"
         lines = [example_line_cc]
         self.assertIsNotNone(test_parser.parse_lines(lines))
 

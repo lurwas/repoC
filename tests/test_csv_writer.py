@@ -24,7 +24,9 @@ class TestCsvWriter(unittest.TestCase):
         Tests write
         :return:
         """
-        log_line = LogLine(file='file', line_number='42', message='Meaning of life')
+        log_line = LogLine(file='file',
+                           line_number='42',
+                           message='Meaning of life')
         with patch('builtins.open', unittest.mock.mock_open()) as mock_open:
             self.csv_writer.write([log_line])
             mock_open.assert_called_once_with(self.csv_writer.filename,
