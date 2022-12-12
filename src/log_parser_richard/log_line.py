@@ -3,10 +3,11 @@ Holds a log line from a doxygen warning log
 """
 
 
-class LogLine:
+class LogLine:  # pylint: disable=too-few-public-methods
     """
     Holds information about a log line from a doxygen warning log
     """
+
     def __init__(self, file, line_number, message):
         self.file = file
         self.line_number = line_number

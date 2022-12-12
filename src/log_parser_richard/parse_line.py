@@ -6,7 +6,7 @@ import re
 from log_parser_richard.log_line import LogLine
 
 
-class ParseLine:
+class ParseLine:  # pylint: disable=too-few-public-methods
     """
     Parses a line from a doxygen warning log
     Example lines:

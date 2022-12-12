@@ -7,7 +7,7 @@ from collections.abc import Iterable
 from log_parser_richard.log_line import LogLine
 
 
-class CsvWriter:
+class CsvWriter:  # pylint: disable=too-few-public-methods
     """
     Tests for CsvWriter
     """
